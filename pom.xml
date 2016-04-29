@@ -59,17 +59,7 @@
 			<url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>
 		</pluginRepository>
 	</pluginRepositories>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.glassfish.jersey</groupId>
-				<artifactId>jersey-bom</artifactId>
-				<version>2.7</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+	
 	<dependencies>
 		<dependency>
 			<groupId>br.gov.frameworkdemoiselle.component</groupId>
@@ -85,11 +75,13 @@
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-grizzly2-http</artifactId>
+			<version>2.7</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-moxy</artifactId>
+			<version>2.7</version>
 		</dependency>
 
 		<dependency>
@@ -97,15 +89,12 @@
 			<artifactId>genson</artifactId>
 			<version>1.4</version>
 		</dependency>
+		<!--  
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 		</dependency>
-		<!-- <dependency> <groupId>org.glassfish.jersey.media</groupId> <artifactId>jersey-media-json-jettison</artifactId> 
-			<version>2.7</version> </dependency> <dependency> <groupId>org.glassfish.jersey.media</groupId> 
-			<artifactId>jersey-media-moxy</artifactId> <version>2.7</version> </dependency> 
-			<dependency> <groupId>org.glassfish.jersey.media</groupId> <artifactId>jersey-media-json-jackson</artifactId> 
-			<version>2.7</version> </dependency> -->
+	-->
 	</dependencies>
 	<build>
 
@@ -176,24 +165,6 @@
 							<phase>package</phase>
 							<goals>
 								<goal>copy-dependencies</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.dstovall</groupId>
-					<artifactId>onejar-maven-plugin</artifactId>
-					<version>1.4.5</version>
-					<executions>
-						<execution>
-							<configuration>
-								<mainClass>${project.realMainClass}</mainClass>
-								<onejarVersion>0.97</onejarVersion>
-								<attachToBuild>true</attachToBuild>
-								<classifier>onejar</classifier>
-							</configuration>
-							<goals>
-								<goal>one-jar</goal>
 							</goals>
 						</execution>
 					</executions>

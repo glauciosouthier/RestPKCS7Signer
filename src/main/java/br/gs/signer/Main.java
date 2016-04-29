@@ -14,20 +14,16 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 public class Main {
 	private static int port = 8080;
+	private static String hostName = null;
 
 	public static void main(String[] args) throws Exception {
 		loadParams(args);
-		URI baseUri = getURI();
 		ResourceConfig config = new ResourceConfig();
-		config.packages(true, "br.gs.signer");
-		config.packages(true, "br.gs.signer.api");
-
 		config.register(JsonMoxyConfigurationContextResolver.class);
 		config.register(FilesEntry.class);
 		// Closeable server = SimpleContainerFactory.create(getURI(), config);
-		HttpServer server = GrizzlyHttpServerFactory.createHttpServer(baseUri,
+		HttpServer server = GrizzlyHttpServerFactory.createHttpServer(getURI(),
 				config);
-
 		try {
 			System.out.println("--Press Enter to STOP the server--");
 			System.in.read();
@@ -44,13 +40,26 @@ public class Main {
 		if (args == null || args.length == 0)
 			return;
 
-		
-		for (int i=0;i<args.length;i++) {
+		for (int i = 0; i < args.length; i++) {
 			switch (args[i]) {
 			case "-port":
-				port=Integer.valueOf(args[i+1]);
+				try {
+					port = Integer.valueOf(args[i + 1]);
+				} catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+					e.printStackTrace();
+					throw new RuntimeException(
+							" '-port' param must be accompanied by port number");
+				}
 				break;
-
+			case "-host":
+				try {
+					hostName = args[i + 1];
+				} catch (ArrayIndexOutOfBoundsException e) {
+					e.printStackTrace();
+					throw new RuntimeException(
+							" '-host' param must be accompanied by host name or IP");
+				}
+				break;
 			default:
 				break;
 			}
@@ -58,17 +67,17 @@ public class Main {
 	}
 
 	private static URI getURI() {
-
 		return UriBuilder.fromUri("http://" + getHostName() + "/").port(port)
 				.build();
 	}
 
 	private static String getHostName() {
-		String hostName = "localhost";
-		try {
-			hostName = InetAddress.getLocalHost().getCanonicalHostName();
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
+		if (hostName == null || "".equals(hostName)) {
+			try {
+				hostName = InetAddress.getLocalHost().getCanonicalHostName();
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+			}
 		}
 		return hostName;
 	}
