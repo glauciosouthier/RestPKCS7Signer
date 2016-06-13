@@ -5,7 +5,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>br.jus.cjf</groupId>
+	<groupId>br.gs.signer</groupId>
 	<artifactId>RestPKCS7Signer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
