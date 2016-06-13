@@ -20,7 +20,7 @@
 		<project.realMainClass>br.gs.signer.Main</project.realMainClass>
 		<keystorePath>${user.home}/cert.p12</keystorePath>
 		<keystorePassword>123456789</keystorePassword>
-		<certAlias>cjfweb.p12</certAlias>
+		<certAlias>mycert.p12</certAlias>
 		<certKeyPassword>123456789</certKeyPassword>
 	</properties>
 
