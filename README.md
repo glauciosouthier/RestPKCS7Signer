@@ -9,7 +9,7 @@ to access:
 
 in browser : 
 http://localhost:5000/files/sign/?list=test1.pdf;test2.pdf  (files in /home/*.pdf)
-or
+\n or
 http://localhost:5000/files/sign/?list=/home/test1.pdf;/home/test2.pdf
 
 
